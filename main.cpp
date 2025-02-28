@@ -10,6 +10,8 @@ int yellow_h_min = 20, yellow_h_max = 30;
 int red_h_min = 0, red_h_max = 10, red_h_max2 = 180, red_h_min2 = 170;
 int blue_h_min = 100, blue_h_max = 140;
 int gaussian_blur_size = 5; // ค่าขนาด Gaussian Blur
+int canny_threshold1 = 23, canny_threshold2 = 30; // ค่า Canny thresholds
+int morph_size = 3; // ขนาด kernel สำหรับ morphological operations
 
 void processFrame(Mat &frame) {
     Mat hsv, mask_green, mask_yellow, mask_red1, mask_red2, mask_red, mask_blue, final_mask, output;
@@ -43,10 +45,33 @@ void processFrame(Mat &frame) {
     // Apply mask กับภาพต้นฉบับ
     bitwise_and(frame, frame, output, final_mask);
     
+    // แปลงภาพ Output เป็น grayscale สำหรับ Canny edge detection
+    Mat gray;
+    cvtColor(output, gray, COLOR_BGR2GRAY);
+    
+    // Canny edge detection
+    Mat edges;
+    Canny(gray, edges, canny_threshold1, canny_threshold2);
+    
+    // Morphological operations (Closing) เพื่อเชื่อมขอบที่ขาด
+    Mat kernel = getStructuringElement(MORPH_RECT, Size(morph_size, morph_size));
+    morphologyEx(edges, edges, MORPH_CLOSE, kernel);
+    
+    // หา Contours จาก edges
+    vector<vector<Point>> contours;
+    vector<Vec4i> hierarchy;
+    findContours(edges, contours, hierarchy, RETR_TREE, CHAIN_APPROX_SIMPLE);
+    
+    // วาด Contours บนภาพต้นฉบับ
+    Mat contour_image = frame.clone();
+    drawContours(contour_image, contours, -1, Scalar(0, 255, 0), 2);
+    
     // แสดงผล
     imshow("Input", frame);
     imshow("Masking", final_mask);
     imshow("Output", output);
+    imshow("Edges", edges);
+    imshow("Contours", contour_image);
 }
 
 int main() {
@@ -58,7 +83,7 @@ int main() {
 
     // สร้างหน้าต่างควบคุม
     namedWindow("Color Controls", WINDOW_AUTOSIZE);
-    
+    resizeWindow("Color Controls", 500, 600);
     // สร้าง Trackbars สำหรับแต่ละสี
     createTrackbar("Green H Min", "Color Controls", &green_h_min, 180);
     createTrackbar("Green H Max", "Color Controls", &green_h_max, 180);
@@ -71,6 +96,9 @@ int main() {
     createTrackbar("Blue H Min", "Color Controls", &blue_h_min, 180);
     createTrackbar("Blue H Max", "Color Controls", &blue_h_max, 180);
     createTrackbar("Gaussian Blur Size", "Color Controls", &gaussian_blur_size, 20);
+    createTrackbar("Canny Threshold 1", "Color Controls", &canny_threshold1, 255);
+    createTrackbar("Canny Threshold 2", "Color Controls", &canny_threshold2, 255);
+    createTrackbar("Morph Size", "Color Controls", &morph_size, 20);
     
     while (true) {
         Mat frame;
