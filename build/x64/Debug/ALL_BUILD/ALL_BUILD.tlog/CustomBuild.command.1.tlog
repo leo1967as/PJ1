@@ -1,0 +1,10 @@
+^D:\WORK\KKU\CODING\CPP\PJ1\CMAKELISTS.TXT
+setlocal
+"C:\Program Files\CMake\bin\cmake.exe" -SD:/Work/KKU/Coding/CPP/PJ1 -BD:/Work/KKU/Coding/CPP/PJ1/build --check-stamp-file D:/Work/KKU/Coding/CPP/PJ1/build/CMakeFiles/generate.stamp
+if %errorlevel% neq 0 goto :cmEnd
+:cmEnd
+endlocal & call :cmErrorLevel %errorlevel% & goto :cmDone
+:cmErrorLevel
+exit /b %1
+:cmDone
+if %errorlevel% neq 0 goto :VCEnd

@@ -1,0 +1,8 @@
+D:/Work/KKU/Coding/CPP/PJ1/build/CMakeFiles/PJ1.dir
+D:/Work/KKU/Coding/CPP/PJ1/build/CMakeFiles/Experimental.dir
+D:/Work/KKU/Coding/CPP/PJ1/build/CMakeFiles/Nightly.dir
+D:/Work/KKU/Coding/CPP/PJ1/build/CMakeFiles/Continuous.dir
+D:/Work/KKU/Coding/CPP/PJ1/build/CMakeFiles/NightlyMemoryCheck.dir
+D:/Work/KKU/Coding/CPP/PJ1/build/CMakeFiles/RUN_TESTS.dir
+D:/Work/KKU/Coding/CPP/PJ1/build/CMakeFiles/ALL_BUILD.dir
+D:/Work/KKU/Coding/CPP/PJ1/build/CMakeFiles/ZERO_CHECK.dir

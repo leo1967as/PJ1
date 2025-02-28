@@ -1,0 +1,8 @@
+D:/Work/KKU/Coding/CPP/PJ1/out/build/Visual Studio Build Tools 2022 Release - amd64/CMakeFiles/PJ1.dir
+D:/Work/KKU/Coding/CPP/PJ1/out/build/Visual Studio Build Tools 2022 Release - amd64/CMakeFiles/Experimental.dir
+D:/Work/KKU/Coding/CPP/PJ1/out/build/Visual Studio Build Tools 2022 Release - amd64/CMakeFiles/Nightly.dir
+D:/Work/KKU/Coding/CPP/PJ1/out/build/Visual Studio Build Tools 2022 Release - amd64/CMakeFiles/Continuous.dir
+D:/Work/KKU/Coding/CPP/PJ1/out/build/Visual Studio Build Tools 2022 Release - amd64/CMakeFiles/NightlyMemoryCheck.dir
+D:/Work/KKU/Coding/CPP/PJ1/out/build/Visual Studio Build Tools 2022 Release - amd64/CMakeFiles/RUN_TESTS.dir
+D:/Work/KKU/Coding/CPP/PJ1/out/build/Visual Studio Build Tools 2022 Release - amd64/CMakeFiles/ALL_BUILD.dir
+D:/Work/KKU/Coding/CPP/PJ1/out/build/Visual Studio Build Tools 2022 Release - amd64/CMakeFiles/ZERO_CHECK.dir
