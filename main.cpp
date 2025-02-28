@@ -9,12 +9,25 @@ int green_h_min = 35, green_h_max = 85;
 int yellow_h_min = 20, yellow_h_max = 30;
 int red_h_min = 0, red_h_max = 10, red_h_max2 = 180, red_h_min2 = 170;
 int blue_h_min = 100, blue_h_max = 140;
+int gaussian_blur_size = 5; // ค่าขนาด Gaussian Blur
 
 void processFrame(Mat &frame) {
     Mat hsv, mask_green, mask_yellow, mask_red1, mask_red2, mask_red, mask_blue, final_mask, output;
     
+    // ปรับขนาดของ Gaussian Blur ให้เป็นเลขคี่
+    int ksize = (gaussian_blur_size % 2 == 0) ? gaussian_blur_size + 1 : gaussian_blur_size;
+    
+    // ลดแสงสะท้อนด้วย GaussianBlur
+    GaussianBlur(frame, frame, Size(ksize, ksize), 0);
+    
     // แปลงภาพเป็น HSV
     cvtColor(frame, hsv, COLOR_BGR2HSV);
+    
+    // ลดแสงจ้าโดยปรับค่า V (Brightness) ให้ต่ำลงในภาพ HSV
+    vector<Mat> hsv_channels;
+    split(hsv, hsv_channels);
+    hsv_channels[2] = hsv_channels[2] * 0.8; // ลดค่าความสว่างลง 20%
+    merge(hsv_channels, hsv);
     
     // Masking สี
     inRange(hsv, Scalar(green_h_min, 50, 50), Scalar(green_h_max, 255, 255), mask_green);
@@ -39,13 +52,12 @@ void processFrame(Mat &frame) {
 int main() {
     VideoCapture cap(1);
     if (!cap.isOpened()) {
-        cout << "Cant Open Cam 1!" << endl;
+        cout << "ไม่สามารถเปิดกล้องได้!" << endl;
         return -1;
     }
 
-    // สร้างหน้าต่างควบคุมและกำหนดให้สามารถปรับขนาดได้
-    namedWindow("Color Controls", WINDOW_NORMAL);
-    resizeWindow("Color Controls", 400, 500); // กำหนดขนาดเริ่มต้นของหน้าต่าง
+    // สร้างหน้าต่างควบคุม
+    namedWindow("Color Controls", WINDOW_AUTOSIZE);
     
     // สร้าง Trackbars สำหรับแต่ละสี
     createTrackbar("Green H Min", "Color Controls", &green_h_min, 180);
@@ -58,6 +70,7 @@ int main() {
     createTrackbar("Red H Max2", "Color Controls", &red_h_max2, 180);
     createTrackbar("Blue H Min", "Color Controls", &blue_h_min, 180);
     createTrackbar("Blue H Max", "Color Controls", &blue_h_max, 180);
+    createTrackbar("Gaussian Blur Size", "Color Controls", &gaussian_blur_size, 20);
     
     while (true) {
         Mat frame;
