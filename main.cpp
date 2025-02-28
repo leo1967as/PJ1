@@ -39,7 +39,7 @@ void processFrame(Mat &frame) {
 int main() {
     VideoCapture cap(1);
     if (!cap.isOpened()) {
-        cout << "ไม่สามารถเปิดกล้องได้!" << endl;
+        cout << "Cant Open Cam 1!" << endl;
         return -1;
     }
 

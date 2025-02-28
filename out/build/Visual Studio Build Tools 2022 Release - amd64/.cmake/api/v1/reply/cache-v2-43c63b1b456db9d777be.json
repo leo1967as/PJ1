@@ -1267,11 +1267,11 @@
 				},
 				{
 					"name" : "HELPSTRING",
-					"value" : ""
+					"value" : "Path to a program."
 				}
 			],
-			"type" : "UNINITIALIZED",
-			"value" : ""
+			"type" : "FILEPATH",
+			"value" : "E:/Window_file/Program_MyLeo/Git/cmd/git.exe"
 		},
 		{
 			"name" : "HGCOMMAND",
